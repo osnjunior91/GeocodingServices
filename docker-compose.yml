@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  forecast-weather-front:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    ports:
+      - "8050:3000"
+
+  forecast-weather-api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "8051:80"
