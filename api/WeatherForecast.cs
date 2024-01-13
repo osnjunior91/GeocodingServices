@@ -1,4 +1,4 @@
-namespace forecast_weather
+namespace ForecastWeatherApi
 {
     public class WeatherForecast
     {
