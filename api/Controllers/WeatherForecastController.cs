@@ -1,4 +1,6 @@
 using ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Aplication.Dtos.Request;
+using ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Aplication.Dtos.Response;
+using ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Aplication.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForecastWeatherApi.Controllers
@@ -7,29 +9,22 @@ namespace ForecastWeatherApi.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
+        
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IWeatherForecastService _forecastService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IWeatherForecastService forecastService)
         {
             _logger = logger;
+            _forecastService = forecastService;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get([FromQuery] GetWeatherForecastRequest request)
+        public async Task<ActionResult<WeatherForecastDataVM>> Get([FromQuery] GetWeatherForecastRequest request)
         {
             request.Validation();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            var result  = await _forecastService.GetWeatherForecastAsync(request);
+            return Ok(result);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Aplication.Dtos.Request;
+using ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Aplication.Dtos.Response;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,6 @@ namespace ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Aplication.Int
 {
     public interface IWeatherForecastService
     {
+        public Task<WeatherForecastDataVM> GetWeatherForecastAsync(GetWeatherForecastRequest request);
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IHttpClientService
     {
-        Task<TResponse?> FetchDataAsync<TResponse>(string url);
+        Task<TResponse?> FetchDataAsync<TResponse>(string url, List<KeyValuePair<string, string>>? headers = null);
     }
 }

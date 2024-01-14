@@ -8,6 +8,7 @@
     {
         public Input Input { get; set; }
         public List<AddressMatch> AddressMatches { get; set; }
+        public string FilterByCoords => $"{AddressMatches[0].Coordinates.Y},{AddressMatches[0].Coordinates.X}";
     }
 
     public class Input

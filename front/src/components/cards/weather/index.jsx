@@ -1,53 +1,38 @@
-import React, { useState } from 'react';
-import { Card, CardContent, Typography, Switch, Grid, Box, Divider } from '@mui/material';
+import React from 'react';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 
-const WeatherCard = () => {
-  const [isCelsius, setIsCelsius] = useState(true);
+const WeatherCard = ({ weatherData }) => {
+  const { date, weekDay, dayWeather } = weatherData;
 
-  const temperature = isCelsius ? 25 : 77; // Substitua isso com a lógica real de obtenção da temperatura
-  const temperatureUnit = isCelsius ? '°C' : '°F';
+  const formatDate = (inputDate) => {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(inputDate).toLocaleDateString('en-US', options);
+  };
 
   return (
-    <Card>
-      {/* Parte superior com imagem ou gif e temperatura */}
+    <Card style={{height: '450px'}}>
       <CardContent>
-        <Grid container justifyContent="space-between" alignItems="center">
-          <Grid item>
-            {/* Adicione aqui o componente de imagem ou gif */}
-            <Box>Imagem ou Gif aqui</Box>
-          </Grid>
-          <Grid item>
-            <Typography variant="h4" gutterBottom>
-              {temperature}
-              <span>{temperatureUnit}</span>
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary">
-              Sensação térmica, umidade, etc.
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant="body2" color="textSecondary">
-              Celsius
-            </Typography>
-            <Switch
-              checked={isCelsius}
-              onChange={() => setIsCelsius((prev) => !prev)}
-              inputProps={{ 'aria-label': 'Alternar entre Celsius e Fahrenheit' }}
-            />
-            <Typography variant="body2" color="textSecondary">
-              Fahrenheit
-            </Typography>
-          </Grid>
-        </Grid>
-      </CardContent>
-      
-      {/* Parte inferior com dados sobre o tempo */}
-      <Divider />
-      <CardContent>
-        {/* Adicione aqui os dados sobre o tempo (umidade, vento, etc.) */}
-        <Typography variant="body2" color="textSecondary">
-          Outros dados sobre o tempo aqui...
+        <Typography variant="h5" component="div">
+          {formatDate(date)}
         </Typography>
+        <Typography variant="h6" component="div" color="textSecondary">
+          {weekDay}
+        </Typography>
+        <Typography variant="body2" color="textSecondary" gutterBottom>
+          Day
+        </Typography>
+        <div>
+          <Typography variant="body1">{dayWeather?.shortForecast}</Typography>
+          <Typography variant="body2">Temperature: {dayWeather?.temperature}°F</Typography>
+          <Typography variant="body2">Wind Speed: {dayWeather?.windSpeed}</Typography>
+          <Typography variant="body2">Humidity: {dayWeather?.relativeHumidity}%</Typography>
+        </div>
+        <Typography variant="body2" color="textSecondary" gutterBottom>
+          Detailed Forecast
+        </Typography>
+        <Typography variant="body2">{dayWeather?.detailedForecast}</Typography>
       </CardContent>
     </Card>
   );

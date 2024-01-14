@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import './App.css';
-import { MenuBar, WeatherCard } from './components';
+import { MenuBar } from './components';
+import { Home } from './pages';
+import { WeatherData } from "./data";
 
 
 const App = () => {
 
-  const days = [0, 1, 2, 3, 4, 5, 6]
+  const [data, setData] = useState(WeatherData);
 
   return (
     <Grid container rowSpacing={12} direction="column">
@@ -14,17 +16,7 @@ const App = () => {
         <MenuBar />
       </Grid>
       <Grid item xs={10} alignItems={'center'} justifyContent={'center'}>
-        <Grid container spacing={8} alignContent={'space-between'}>
-          {
-            days.map(x => {
-              return (
-                <Grid item xs>
-                  <WeatherCard key={x} />
-                </Grid>
-              )
-            })
-          }
-        </Grid>
+        <Home data={data} />
       </Grid>
     </Grid>
   );
