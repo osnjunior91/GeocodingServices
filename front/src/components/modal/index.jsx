@@ -25,6 +25,16 @@ const FormModal = ({open, setOpen, handleSubmit}) => {
     validateOnMount: true,
     validationSchema: Yup.object({
       street: Yup.string().required('Street is required').max(100, 'Street cannot be more than 100 characters'),
+      city: Yup.string().when('zip', {
+        is: (zip) => !zip,
+        then: () => Yup.string().required("Required if ZIP is empty."),
+        otherwise:() => Yup.string().notRequired(),
+      }),
+      state: Yup.string().when('zip', {
+        is: (zip) => !zip,
+        then: () => Yup.string().required("Required if ZIP is empty."),
+        otherwise:() => Yup.string().notRequired(),
+      }),
     }),
   });
 
