@@ -80,9 +80,17 @@ Just set the **Nivello.Api** project as main, and run using IIS. After executing
 
 ![strong text](https://github.com/osnjunior91/forecast-weather/blob/main/GitImages/swagger.png?raw=true)
 
-### Executar Web Site
--Acessar pasta **\nivello\web-site**.
--Definir no arquivo **nivello\web-site\src\services\axios\index.js** o endereco base da api
+### Execute Web Site
+-Go to **/front/src/services/axios/index.js** and change the api address.
+-Run
 
-![strong text](https://github.com/osnjunior91/nivello/blob/main/images/axios.png?raw=true)
+```sh
+npm start
+```
+or
 
+```sh
+yarn start
+```
+
+## How use aplication
