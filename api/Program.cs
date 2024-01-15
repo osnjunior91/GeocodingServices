@@ -1,4 +1,5 @@
 using ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Aplication.Interfaces;
+using ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Aplication.Middlewares;
 using ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Aplication.Services;
 using ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Infrastructure.ExternalServices;
 
@@ -33,5 +34,7 @@ app.UseCors(x => x
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.Run();

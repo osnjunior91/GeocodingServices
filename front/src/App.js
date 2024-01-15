@@ -3,37 +3,26 @@ import Grid from '@mui/material/Grid';
 import './App.css';
 import { FormModal, Loading, MenuBar, ShowMap } from './components';
 import { Home } from './pages';
-import { WeatherData } from "./data";
 import { GetWeatherForecast } from './services/api';
+import { GetApiErrorMessage } from './utils';
 
 
 const App = () => {
 
-  const [data, setData] = useState(WeatherData);
+  const [data, setData] = useState();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-
-  const GetForecast = (parms) => {
+  const onSubmit = (values) => {
     setLoading(true);
-    GetWeatherForecast(parms)
+    GetWeatherForecast(values)
       .then(response => {
         setData(response.data);
       })
-      .catch(error => {
-        console.error('Error:', error);
+      .catch((error) => {
+        alert(GetApiErrorMessage(error));
       })
       .finally(() => setLoading(false));
-  }
-
-  const onSubmit = (values) => {
-    const parms = {
-      street: '401 7TH AVE',
-      city: 'New York',
-      state: 'NY',
-      zip: '10001',
-    }
-    GetForecast(parms);
   }
 
   return (
@@ -43,12 +32,15 @@ const App = () => {
       <Grid item>
         <MenuBar setOpen={setOpen} weatherData={data} />
       </Grid>
-      <Grid item alignItems={'center'} justifyContent={'center'} style={{ height: '260px', paddingInline: '20px' }}>
-        <ShowMap latitude={data?.lat} longitude={data?.lng} />
-      </Grid>
-      <Grid item alignItems={'center'} justifyContent={'center'} style={{ paddingInline: '20px' }}>
-        <Home data={data} />
-      </Grid>
+      {data ?
+        <Grid item rowSpacing={5}>
+          <Grid item alignItems={'center'} justifyContent={'center'} style={{ height: '260px', paddingInline: '20px' }}>
+            <ShowMap latitude={data?.lat} longitude={data?.lng} />
+          </Grid>
+          <Grid item alignItems={'center'} justifyContent={'center'} style={{ padding: '20px' }}>
+            <Home data={data} />
+          </Grid>
+        </Grid> : null}
     </Grid>
   );
 }

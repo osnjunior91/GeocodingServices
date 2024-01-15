@@ -3,6 +3,7 @@ using ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Aplication.Dtos.Re
 using ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Aplication.Interfaces;
 using ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Infrastructure.DTOs.ApiResponses;
 using ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Infrastructure.ExternalServices;
+using Newtonsoft.Json;
 
 namespace ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Aplication.Services
 {
@@ -24,6 +25,9 @@ namespace ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Aplication.Ser
         public async Task<WeatherForecastDataVM> GetWeatherForecastAsync(GetWeatherForecastRequest request)
         {
             var coords = await _httpClientService.FetchDataAsync<AddressApiResponseDto>($"{ADDRESSAPIURL}?{request}");
+            if(coords?.Result?.AddressMatches.Count == 0)
+                throw new ArgumentException("Address not found, chack the parameters.");
+
             var weatherApiData = await _httpClientService.FetchDataAsync<WeatherCoordResponseDto>($"{WEATHERAPIURL}/points/{coords.Result.FilterByCoords}", Headers);
             var forecastData = await _httpClientService.FetchDataAsync<WeatherForecastResponseDto>(weatherApiData.Properties.Forecast);
 

@@ -26,9 +26,6 @@ const FormModal = ({open, setOpen, handleSubmit}) => {
     validationSchema: Yup.object({
       street: Yup.string().required('Street is required').max(100, 'Street cannot be more than 100 characters'),
     }),
-    onSubmit: (values) => {
-        handleSubmit({...values});
-    },
   });
 
   const handleClose = () => {
@@ -39,7 +36,6 @@ const FormModal = ({open, setOpen, handleSubmit}) => {
 
 
   return (
-    <form onSubmit={formik.handleSubmit}>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -47,7 +43,7 @@ const FormModal = ({open, setOpen, handleSubmit}) => {
           component: 'form',
           onSubmit: (event) => {
             event.preventDefault();
-            formik.handleSubmit(formik.values);
+            handleSubmit(formik.values);
             handleClose();
           },
         }}
@@ -116,7 +112,6 @@ const FormModal = ({open, setOpen, handleSubmit}) => {
           <Button disabled={!formik.isValid} type="submit">Search</Button>
         </DialogActions>
       </Dialog>
-      </form>
   );
 }
 
