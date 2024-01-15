@@ -94,3 +94,11 @@ yarn start
 ```
 
 ## How use aplication
+### Home Page
+  
+
+![HomeEmpty.png](https://github.com/osnjunior91/forecast-weather/blob/main/GitImages/HomeEmpty.png?raw=true)
+
+##### Here you will:
+* Click on **Click here to select address**.
+* Fill in address info on this modal form.
