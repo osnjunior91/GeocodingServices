@@ -46,12 +46,12 @@ const WeatherCard = ({ weatherData }) => {
         <Typography variant="h6" component="div" color="textSecondary">
           {weekDay}
         </Typography>
-        <div className='accordion'>
+       {dayWeather ? <div className='accordion'>
           {WeatherDescription('Day', dayWeather)}
-        </div>
-        <div className='accordion'>
+        </div> : null}
+       { nightWeather ? <div className='accordion'>
           {WeatherDescription('Night', nightWeather)}
-        </div>
+        </div> : null}
       </CardContent>
     </Card>
   );

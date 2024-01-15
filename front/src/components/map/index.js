@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { MapContainer, TileLayer, LayerGroup, Circle } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const ShowMap = ({ latitude, longitude }) => {
-    const [markerPosition] = React.useState([latitude, longitude]);
     return (
         <MapContainer
             center={[latitude, longitude]}
@@ -16,7 +15,7 @@ const ShowMap = ({ latitude, longitude }) => {
             />
 
             <LayerGroup>
-                <Circle center={markerPosition} pathOptions={{ fillColor: 'blue' }} radius={600} />
+                <Circle center={[latitude, longitude]} pathOptions={{ fillColor: 'blue' }} radius={600} />
             </LayerGroup>
         </MapContainer>
     );

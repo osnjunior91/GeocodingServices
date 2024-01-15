@@ -4,9 +4,11 @@
   import Typography from '@mui/material/Typography';
   import Container from '@mui/material/Container';
   import NightsStayIcon from '@mui/icons-material/NightsStay';
+  import Link from '@mui/material/Link';
+
 
  
-  const MenuBar = () => {
+  const MenuBar = ({setOpen, weatherData}) => {
     return (
       <AppBar position="static">
         <Container maxWidth="xl">
@@ -29,6 +31,22 @@
             >
               WEATHER
             </Typography>
+            <Link
+              component="button"
+              variant="body2"
+              sx={{
+                ml: 5,
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'underline',
+                alignSelf: 'center'
+              }}
+              onClick={setOpen}
+            >
+              {weatherData?.streetName? `${weatherData?.streetName}, ${weatherData?.city} - ${weatherData?.state}` : 'Click here to select address'}
+            </Link>
           </Toolbar>
         </Container>
       </AppBar>

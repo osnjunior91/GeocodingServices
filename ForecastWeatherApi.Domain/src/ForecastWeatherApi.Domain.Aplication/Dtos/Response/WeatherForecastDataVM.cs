@@ -32,8 +32,8 @@ namespace ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Aplication.Dto
             {
                 result.Add(new WeatherDataVM(
                     DateTime.UtcNow.AddDays(i).Date, 
-                    properties.Periods.First(x => x.IsDaytime && x.StartTime.Date == DateTime.UtcNow.AddDays(i).Date),
-                    properties.Periods.First(x => !x.IsDaytime && x.StartTime.Date == DateTime.UtcNow.AddDays(i).Date)));
+                    properties.Periods.FirstOrDefault(x => x.IsDaytime && x.StartTime.Date == DateTime.UtcNow.AddDays(i).Date),
+                    properties.Periods.FirstOrDefault(x => !x.IsDaytime && x.StartTime.Date == DateTime.UtcNow.AddDays(i).Date)));
             }
             return result;
         }
@@ -41,17 +41,17 @@ namespace ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Aplication.Dto
 
     public class WeatherDataVM
     {
-        public WeatherDataVM(DateTime date, Period dayPeriod, Period nightPeriod)
+        public WeatherDataVM(DateTime date, Period? dayPeriod, Period? nightPeriod)
         {
             Date = date;
             WeekDay = date.ToDayOfWeekString();
-            DayWeather = new WeatherDataInfoVM(dayPeriod);
-            NightWeather = new WeatherDataInfoVM(nightPeriod);
+            DayWeather = dayPeriod != null ? new WeatherDataInfoVM(dayPeriod) : null;
+            NightWeather = nightPeriod != null ? new WeatherDataInfoVM(nightPeriod) : null;
         }
         public DateTime Date { get; private set; }
         public string WeekDay { get; private set; }
-        public WeatherDataInfoVM DayWeather { get; private set; }
-        public WeatherDataInfoVM NightWeather { get; private set; }
+        public WeatherDataInfoVM? DayWeather { get; private set; }
+        public WeatherDataInfoVM? NightWeather { get; private set; }
 
     }
 
