@@ -102,3 +102,19 @@ yarn start
 ##### Here you will:
 * Click on **Click here to select address**.
 * Fill in address info on this modal form.
+
+![form.png](https://github.com/osnjunior91/forecast-weather/blob/main/GitImages/form.png?raw=true)
+
+After loading all the documentation you will see the following page.
+
+![weatherinfo.png](https://github.com/osnjunior91/forecast-weather/blob/main/GitImages/weatherinfo.png?raw=true)
+
+##### Here you can:
+* See the address on a map.
+* Expand colapse to show more information.
+* Check the weater information.
+
+
+Well, basically, these are the basic functionalities of the system.
+
+If you have any questions, I am at your disposal.
