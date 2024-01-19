@@ -26,9 +26,13 @@ namespace ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Aplication.Ser
         {
             var coords = await _httpClientService.FetchDataAsync<AddressApiResponseDto>($"{ADDRESSAPIURL}?{request}");
             if(coords?.Result?.AddressMatches.Count == 0)
-                throw new ArgumentException("Address not found, chack the parameters.");
+                throw new ArgumentException("Address not found, check the parameters.");
 
             var weatherApiData = await _httpClientService.FetchDataAsync<WeatherCoordResponseDto>($"{WEATHERAPIURL}/points/{coords.Result.FilterByCoords}", Headers);
+            
+            if (weatherApiData == null)
+                throw new ArgumentException("Weather point not found.");
+
             var forecastData = await _httpClientService.FetchDataAsync<WeatherForecastResponseDto>(weatherApiData.Properties.Forecast);
 
             return new WeatherForecastDataVM(coords.Result.AddressMatches[0], forecastData);
