@@ -13,7 +13,6 @@ namespace ForecastWeatherApi.Domain.src.ForecastWeatherApi.Domain.Infrastructure
 
         public async Task<TResponse?> FetchDataAsync<TResponse>(string url, List<KeyValuePair<string, string>>? headers = null)
         {
-            // Adiciona headers, se fornecidos
             if (headers != null)
             {
                 foreach (var header in headers)
